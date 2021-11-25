@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ScolariteApplication<Scolarite>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "org.isetn.ScolariteApplication",
+            "projectName": "Scolarite",
+            "args": ""
+        }
+    ]
+}
