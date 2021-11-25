@@ -1,7 +1,19 @@
+import 'package:client/models/user.dart';
+import 'package:client/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserProvider>(
+          create: (context) => UserProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -9,12 +21,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+    UserProvider _userProvider = Provider.of<UserProvider>(
+      context,
+      listen: false,
+    );
+
+    return StreamProvider<User?>.value(
+      initialData: null,
+      value: _userProvider.loggedUser$,
+      child: MaterialApp(
+        title: "HTTP Authentication",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.deepPurple,
+        ),
       ),
-      home: const Text("Test"),
     );
   }
 }
