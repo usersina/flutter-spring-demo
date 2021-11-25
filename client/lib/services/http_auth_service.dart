@@ -4,9 +4,8 @@ import 'package:client/models/user.dart';
 import 'package:http/http.dart';
 
 class HttpAuthService {
-  final String baseUrl = "http://10.0.0.2:8080/";
+  final String baseUrl = "http://10.0.2.2:8080/";
 
-  // -- TESTME:
   Future<User> registerWithEmailAndPassword(
       String email, String password) async {
     final response = await post(
@@ -26,7 +25,6 @@ class HttpAuthService {
     }
   }
 
-  // -- TESTME:
   Future<User> signInWithEmailAndPassword(String email, String password) async {
     final response = await post(
       Uri.parse(baseUrl + "login"),

@@ -113,6 +113,16 @@ class _SignInState extends State<SignIn> {
                         _userProvider.setNextStreamValue(user);
                       } catch (e) {
                         log(e.toString());
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Clould not log in with these credentials!',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
                       }
                     }
                   },

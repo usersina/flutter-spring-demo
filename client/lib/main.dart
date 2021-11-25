@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       initialData: null,
       value: _userProvider.loggedUser$,
       child: MaterialApp(
-        title: "HTTP Authentication",
+        title: "Flutter HTTP demo",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
