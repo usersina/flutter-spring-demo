@@ -1,6 +1,6 @@
 import 'package:client/models/user.dart';
 import 'package:client/screens/authenticate/authenticate.dart';
-import 'package:client/screens/home/home.dart';
+import 'package:client/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +11,6 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     // -- Subscribe to the User provided by the previous widget stream
     final user = Provider.of<User?>(context);
-    return user == null ? const Authenticate() : const Home();
+    return user == null ? const Authenticate() : const HomeScreen();
   }
 }
