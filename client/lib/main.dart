@@ -1,5 +1,6 @@
 import 'package:client/models/user.dart';
 import 'package:client/providers/user_provider.dart';
+import 'package:client/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
         ),
+        home: const Wrapper(),
       ),
     );
   }
