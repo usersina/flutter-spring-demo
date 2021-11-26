@@ -10,6 +10,11 @@ class StudentProvider extends ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  void updateStudents(Student student) {
+    list[list.indexWhere((element) => element.id == student.id)] = student;
+    notifyListeners();
+  }
+
   void clearStudents() {
     list = [];
     notifyListeners();

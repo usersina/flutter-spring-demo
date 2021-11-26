@@ -31,9 +31,9 @@ class StudentScreen extends StatelessWidget {
           }
           if (snapshot.hasData) {
             // -- Initalize provider data
-            log("Initializing students list!");
+            log("Initializing students list, should not run on modal exit!");
             studentProvider.setStudents(snapshot.data ?? [], notify: false);
-            return StudentList(students: studentProvider.list);
+            return StudentList();
           } else if (snapshot.hasError) {
             return Center(
               child: Text("${snapshot.error}"),

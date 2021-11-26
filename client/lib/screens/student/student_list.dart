@@ -1,20 +1,27 @@
 import 'package:client/models/student.dart';
+import 'package:client/providers/student_provider.dart';
 import 'package:client/screens/student/student_dialog.dart';
 import 'package:client/services/http_student_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StudentList extends StatelessWidget {
   final HttpStudentService _httpStudentService = HttpStudentService();
-  final List<Student> students;
 
-  StudentList({Key? key, required this.students}) : super(key: key);
+  StudentList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // -- Only listen for changes in this widget as not to fetch data again
+    StudentProvider studentProvider = Provider.of<StudentProvider>(
+      context,
+      listen: true,
+    );
+
     return ListView.builder(
-      itemCount: students.length,
+      itemCount: studentProvider.list.length,
       itemBuilder: (BuildContext context, int index) {
-        Student student = students[index];
+        Student student = studentProvider.list[index];
         return Dismissible(
           key: UniqueKey(),
           onDismissed: (direction) async {

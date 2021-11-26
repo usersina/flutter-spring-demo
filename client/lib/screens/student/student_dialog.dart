@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:client/models/student.dart';
+import 'package:client/providers/student_provider.dart';
 import 'package:client/services/http_student_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class StudentDialog extends StatelessWidget {
   final Student? student;
@@ -15,6 +17,9 @@ class StudentDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    StudentProvider studentProvider =
+        Provider.of<StudentProvider>(context, listen: false);
+
     final HttpStudentService _httpStudentService = HttpStudentService();
     final df = DateFormat('dd-MM-yyyy');
     DateTime selectedDate = DateTime.now();
@@ -53,6 +58,16 @@ class StudentDialog extends StatelessWidget {
             // Close the dialog without proceeding
             return Navigator.pop(context);
           }
+          myStudent = await _httpStudentService.createStudent(
+            Student(
+              student!.id,
+              firstNameController.text,
+              lastNameController.text,
+              df.parse(
+                dateTextController.text,
+              ),
+            ),
+          );
           break;
         case false: // -- Update an existing student
           myStudent = await _httpStudentService.updateStudent(
@@ -67,6 +82,7 @@ class StudentDialog extends StatelessWidget {
           );
           break;
       }
+      studentProvider.updateStudents(myStudent);
       // -- Close the dialog
       Navigator.pop(context);
     }
