@@ -88,6 +88,7 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
+                primary: Colors.deepPurple.withOpacity(0.5),
                 minimumSize: const Size.fromHeight(
                   50,
                 ),
@@ -110,6 +111,7 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
+                primary: Colors.deepPurple.withOpacity(0.5),
                 minimumSize: const Size.fromHeight(
                   50,
                 ),
