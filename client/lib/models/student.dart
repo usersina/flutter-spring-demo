@@ -18,7 +18,7 @@ class Student {
         map["id"],
         map["prenom"],
         map["nom"],
-        map["dateNais"],
+        DateTime.parse(map["dateNais"]),
       );
 
   Map<String, dynamic> toJson() => {

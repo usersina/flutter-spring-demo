@@ -1,4 +1,5 @@
 import 'package:client/models/user.dart';
+import 'package:client/providers/student_provider.dart';
 import 'package:client/providers/user_provider.dart';
 import 'package:client/screens/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,9 @@ void main() {
         ChangeNotifierProvider<UserProvider>(
           create: (context) => UserProvider(),
         ),
+        ChangeNotifierProvider<StudentProvider>(
+          create: (context) => StudentProvider(),
+        )
       ],
       child: const MyApp(),
     ),

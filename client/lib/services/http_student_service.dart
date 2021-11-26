@@ -4,7 +4,7 @@ import 'package:client/models/student.dart';
 import 'package:http/http.dart';
 
 class HttpStudentService {
-  final String baseUrl = "http://10.0.0.2:8080/etudiants";
+  final String baseUrl = "http://10.0.2.2:8080/etudiants";
 
   // -- TESTME:
   Future<Student> createStudent(Student student) async {
@@ -28,11 +28,12 @@ class HttpStudentService {
     final response = await get(Uri.parse(baseUrl));
 
     if (response.statusCode == 200) {
-      return jsonDecode(response.body).map(
-        (rawStudent) => {
-          Student.fromJson(rawStudent),
-        }.toList(),
-      );
+      List rawResult = jsonDecode(response.body);
+      return rawResult
+          .map(
+            (rawStudent) => Student.fromJson(rawStudent),
+          )
+          .toList();
     } else {
       throw Exception('Failed to fetch students');
     }

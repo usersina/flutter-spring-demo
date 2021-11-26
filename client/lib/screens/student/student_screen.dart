@@ -1,7 +1,13 @@
+import 'dart:developer';
+
+import 'package:client/models/student.dart';
+import 'package:client/services/http_student_service.dart';
 import 'package:flutter/material.dart';
 
 class StudentScreen extends StatelessWidget {
-  const StudentScreen({Key? key}) : super(key: key);
+  StudentScreen({Key? key}) : super(key: key);
+
+  final HttpStudentService _httpStudentService = HttpStudentService();
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +15,26 @@ class StudentScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Manage Students"),
       ),
-      body: const Text("TODO: Manage Students!"),
+      body: FutureBuilder(
+        future: _httpStudentService.getAllStudents(),
+        builder: (context, AsyncSnapshot<List<Student>> snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasData) {
+            return Text("${snapshot.data}");
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text("${snapshot.error}"),
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
     );
   }
 }
