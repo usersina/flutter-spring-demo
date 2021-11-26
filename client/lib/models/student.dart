@@ -1,5 +1,5 @@
 class Student {
-  int id;
+  int? id;
   String firstName;
   String lastName;
   DateTime birthDate;
@@ -22,9 +22,9 @@ class Student {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "id": id.toString(),
         "prenom": firstName,
         "nom": lastName,
-        "dateNais": birthDate,
+        "dateNais": birthDate.toIso8601String(),
       };
 }

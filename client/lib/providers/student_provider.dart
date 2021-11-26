@@ -5,9 +5,9 @@ class StudentProvider extends ChangeNotifier {
   List<Student> list = [];
 
   //--------------------Methods---------------------//
-  void setStudents(List<Student> newList) {
+  void setStudents(List<Student> newList, {bool notify = true}) {
     list = newList;
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
   void clearStudents() {
