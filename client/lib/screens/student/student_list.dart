@@ -26,6 +26,7 @@ class StudentList extends StatelessWidget {
           key: UniqueKey(),
           onDismissed: (direction) async {
             await _httpStudentService.deleteStudent(student.id!);
+            studentProvider.deleteStudent(student.id!);
           },
           child: ListTile(
             title: Text(

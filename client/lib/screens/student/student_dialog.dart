@@ -59,8 +59,7 @@ class StudentDialog extends StatelessWidget {
             return Navigator.pop(context);
           }
           myStudent = await _httpStudentService.createStudent(
-            Student(
-              student!.id,
+            Student.toForm(
               firstNameController.text,
               lastNameController.text,
               df.parse(
@@ -68,6 +67,7 @@ class StudentDialog extends StatelessWidget {
               ),
             ),
           );
+          studentProvider.addStudent(myStudent);
           break;
         case false: // -- Update an existing student
           myStudent = await _httpStudentService.updateStudent(
@@ -80,9 +80,10 @@ class StudentDialog extends StatelessWidget {
               ),
             ),
           );
+          studentProvider.updateStudents(myStudent);
           break;
       }
-      studentProvider.updateStudents(myStudent);
+
       // -- Close the dialog
       Navigator.pop(context);
     }

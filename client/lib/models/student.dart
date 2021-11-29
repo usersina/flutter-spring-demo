@@ -11,6 +11,9 @@ class Student {
     this.birthDate,
   );
 
+  // Constructor used in form, since id should not be passed!
+  Student.toForm(this.firstName, this.lastName, this.birthDate);
+
   factory Student.fromJson(
     Map<String, dynamic> map,
   ) =>

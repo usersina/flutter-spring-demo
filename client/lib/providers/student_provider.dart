@@ -15,8 +15,13 @@ class StudentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearStudents() {
-    list = [];
+  void addStudent(Student student) {
+    list.add(student);
+    notifyListeners();
+  }
+
+  void deleteStudent(int id) {
+    list.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 }

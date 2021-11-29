@@ -7,7 +7,6 @@ import 'package:http/http.dart';
 class HttpStudentService {
   final String baseUrl = "http://10.0.2.2:8080/etudiants";
 
-  // -- TESTME:
   Future<Student> createStudent(Student student) async {
     final response = await post(
       Uri.parse(baseUrl),
