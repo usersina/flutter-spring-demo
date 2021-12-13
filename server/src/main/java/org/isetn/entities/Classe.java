@@ -23,7 +23,7 @@ public class Classe {
 
 	private int nbEtudiant; // -- Should be inferred from array below
 
-	@OneToMany(mappedBy = "classe")
+	@OneToMany(mappedBy = "classe", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Collection<Etudiant> etudiants;
 }
