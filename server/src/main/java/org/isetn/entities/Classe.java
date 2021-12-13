@@ -19,11 +19,12 @@ public class Classe {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(unique = true)
 	private String nom;
 
 	private int nbEtudiant; // -- Should be inferred from array below
 
-	@OneToMany(mappedBy = "classe", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "classe", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Etudiant> etudiants;
 }
