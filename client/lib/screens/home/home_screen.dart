@@ -1,5 +1,6 @@
 import 'package:client/models/user.dart';
 import 'package:client/providers/user_provider.dart';
+import 'package:client/screens/classe/classe_screen.dart';
 import 'package:client/screens/student/student_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,7 +89,6 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.deepPurple.withOpacity(0.5),
                 minimumSize: const Size.fromHeight(
                   50,
                 ),
@@ -104,7 +104,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ClasseScreen(),
+                  ),
+                );
+              },
             ),
           ),
           Padding(
