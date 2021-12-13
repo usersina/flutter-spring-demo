@@ -57,6 +57,8 @@ class StudentDialog extends StatelessWidget {
             // Close the dialog without proceeding
             return Navigator.pop(context);
           }
+          // Find the appropriate classe based on its name
+
           myStudent = await _httpStudentService.createStudent(
             Student.toForm(
               firstNameController.text,
@@ -64,6 +66,7 @@ class StudentDialog extends StatelessWidget {
               df.parse(
                 dateTextController.text,
               ),
+              // TODO: Populate from a dropdown
               Classe(1, "DSI23", 23),
             ),
           );
@@ -78,6 +81,7 @@ class StudentDialog extends StatelessWidget {
               df.parse(
                 dateTextController.text,
               ),
+              // TODO: Populate from a dropdown
               Classe(1, "DSI23", 23),
             ),
           );

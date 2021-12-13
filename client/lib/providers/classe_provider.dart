@@ -3,7 +3,9 @@ import 'package:flutter/foundation.dart';
 
 class ClasseProvider extends ChangeNotifier {
   List<Classe> list = [];
-  String? selected; // Causes uniqueness problems with a "Classe"
+
+  static Classe placeholder = Classe(-1, "All", -1);
+  Classe? selected = placeholder;
 
   //--------------------Methods---------------------//
   // -- Classes list
@@ -28,7 +30,7 @@ class ClasseProvider extends ChangeNotifier {
   }
 
   // -- Selected classe
-  void setSelected(String classe) {
+  void setSelected(Classe classe) {
     selected = classe;
     notifyListeners();
   }

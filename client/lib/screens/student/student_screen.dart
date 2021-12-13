@@ -33,11 +33,11 @@ class StudentScreen extends StatelessWidget {
         }
         if (snapshot.hasData) {
           List<Classe> myClasses = snapshot.data!;
-          myClasses.insert(0, Classe(-1, "All", -1));
+          myClasses.insert(0, ClasseProvider.placeholder);
 
           return DropdownButton<String>(
             isExpanded: true,
-            value: classeProvider.selected,
+            value: classeProvider.selected?.name,
             elevation: 16,
             underline: Container(
               height: 2,
@@ -45,7 +45,10 @@ class StudentScreen extends StatelessWidget {
             ),
             onChanged: (String? newValue) {
               if (newValue != null) {
-                classeProvider.setSelected(newValue);
+                Classe selectedClasse = myClasses.firstWhere(
+                  (element) => element.name == newValue,
+                );
+                classeProvider.setSelected(selectedClasse);
                 studentProvider.filterStudents(newValue);
               }
               Navigator.pop(context);
@@ -90,6 +93,8 @@ class StudentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     StudentProvider studentProvider =
         Provider.of<StudentProvider>(context, listen: false);
+    ClasseProvider classeProvider =
+        Provider.of<ClasseProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -129,6 +134,12 @@ class StudentScreen extends StatelessWidget {
             // -- Initalize provider data
             log("Initializing students list, should not run on modal exit!");
             studentProvider.setStudents(snapshot.data ?? [], notify: false);
+            if (classeProvider.selected?.name != null) {
+              studentProvider.filterStudents(
+                classeProvider.selected!.name,
+                notify: false,
+              );
+            }
             return StudentList();
           } else if (snapshot.hasError) {
             return Center(

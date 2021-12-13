@@ -17,7 +17,7 @@ class StudentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void filterStudents(String classname) {
+  void filterStudents(String classname, {bool notify = true}) {
     if (classname == "All") {
       list = initialList;
     } else {
@@ -25,7 +25,7 @@ class StudentProvider extends ChangeNotifier {
           .where((element) => element.classe.name == classname)
           .toList();
     }
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
   void addStudent(Student student) {
