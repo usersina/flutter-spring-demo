@@ -1,3 +1,4 @@
+import 'package:client/models/classe.dart';
 import 'package:client/models/student.dart';
 import 'package:client/providers/student_provider.dart';
 import 'package:client/services/http_student_service.dart';
@@ -63,6 +64,7 @@ class StudentDialog extends StatelessWidget {
               df.parse(
                 dateTextController.text,
               ),
+              Classe(1, "DSI23", 23),
             ),
           );
           studentProvider.addStudent(myStudent);
@@ -76,6 +78,7 @@ class StudentDialog extends StatelessWidget {
               df.parse(
                 dateTextController.text,
               ),
+              Classe(1, "DSI23", 23),
             ),
           );
           studentProvider.updateStudents(myStudent);

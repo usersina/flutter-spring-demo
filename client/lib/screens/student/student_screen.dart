@@ -20,6 +20,8 @@ class StudentScreen extends StatelessWidget {
   Widget futureDropdownMenu(BuildContext context) {
     ClasseProvider classeProvider =
         Provider.of<ClasseProvider>(context, listen: false);
+    StudentProvider studentProvider =
+        Provider.of<StudentProvider>(context, listen: false);
 
     return FutureBuilder<List<Classe>>(
       future: _httpClasseService.getAllClasses(),
@@ -44,6 +46,7 @@ class StudentScreen extends StatelessWidget {
             onChanged: (String? newValue) {
               if (newValue != null) {
                 classeProvider.setSelected(newValue);
+                studentProvider.filterStudents(newValue);
               }
               Navigator.pop(context);
             },

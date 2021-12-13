@@ -1,4 +1,5 @@
 import 'package:client/models/student.dart';
+import 'package:client/providers/classe_provider.dart';
 import 'package:client/providers/student_provider.dart';
 import 'package:client/screens/student/student_dialog.dart';
 import 'package:client/services/http_student_service.dart';
