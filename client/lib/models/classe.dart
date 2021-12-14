@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class Classe {
   int? id;
   String name;
@@ -22,4 +24,13 @@ class Classe {
         "nom": name,
         "nbEtudiant": capacity,
       };
+
+  // Since dropdown values should be unique
+  // This asserts that comparison is done using the id
+  // and not the instance reference
+  @override
+  bool operator ==(other) => other is Classe && id == other.id;
+
+  @override
+  int get hashCode => hashValues(id, name);
 }

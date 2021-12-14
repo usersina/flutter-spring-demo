@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:client/models/classe.dart';
 import 'package:client/models/student.dart';
 import 'package:client/providers/classe_provider.dart';
@@ -24,17 +26,25 @@ class _StudentDialogState extends State<StudentDialog> {
   final HttpClasseService _httpClasseService = HttpClasseService();
 
   Classe? _selectedClasse;
-  List<Classe>? classes;
+  List<Classe> classes = [];
 
   @override
   initState() {
     super.initState();
+    // TODO: Get default selected from provider
     _selectedClasse = widget.student?.classe;
     fetchClasses();
   }
 
   fetchClasses() async {
-    classes = await _httpClasseService.getAllClasses();
+    try {
+      List<Classe> myClasses = await _httpClasseService.getAllClasses();
+      setState(() {
+        classes = myClasses;
+      });
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   @override
@@ -76,6 +86,10 @@ class _StudentDialogState extends State<StudentDialog> {
       Classe? selectedClasse = classeProvider.selected;
       if (selectedClasse?.name == "All") {
         selectedClasse = null;
+      }
+      if (_selectedClasse != null) {
+        selectedClasse = _selectedClasse;
+        classeProvider.setSelected(_selectedClasse!);
       }
       switch (isNew) {
         case true: // -- Create a new student
@@ -156,42 +170,23 @@ class _StudentDialogState extends State<StudentDialog> {
                 _selectDate(context);
               },
             ),
-            classes == null
-                ? const Text("Loading...")
-                : DropdownButtonFormField<String>(
-                    value: _selectedClasse?.name,
-                    isExpanded: true,
-                    items: classes!.map<DropdownMenuItem<String>>(
-                      (Classe classe) {
-                        return DropdownMenuItem<String>(
-                          value: classe.name,
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.meeting_room,
-                                color: Colors.black,
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                classe.name,
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        // _selectedClasse = value;
-                        // classeProvider.setSelected(selectedClasse);
-                        // studentProvider.filterStudents(newValue);
-                      });
-                    },
-                  ),
+            DropdownButtonFormField<Classe>(
+              value: _selectedClasse,
+              isExpanded: true,
+              items: classes.map<DropdownMenuItem<Classe>>(
+                (Classe classe) {
+                  return DropdownMenuItem<Classe>(
+                    value: classe,
+                    child: Text(
+                      classe.name,
+                    ),
+                  );
+                },
+              ).toList(),
+              onChanged: (value) {
+                _selectedClasse = value;
+              },
+            ),
             const SizedBox(height: 5),
             ElevatedButton(
               onPressed: handleAction,
