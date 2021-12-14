@@ -1,5 +1,6 @@
 import 'package:client/models/classe.dart';
 import 'package:client/models/student.dart';
+import 'package:client/providers/classe_provider.dart';
 import 'package:client/providers/student_provider.dart';
 import 'package:client/services/http_student_service.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class StudentDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     StudentProvider studentProvider =
         Provider.of<StudentProvider>(context, listen: false);
+    ClasseProvider classeProvider =
+        Provider.of<ClasseProvider>(context, listen: false);
 
     final HttpStudentService _httpStudentService = HttpStudentService();
     final df = DateFormat('dd-MM-yyyy');
@@ -48,6 +51,10 @@ class StudentDialog extends StatelessWidget {
 
     handleAction() async {
       late Student myStudent;
+      Classe? selectedClasse = classeProvider.selected;
+      if (selectedClasse?.name == "All") {
+        selectedClasse = null;
+      }
       switch (isNew) {
         case true: // -- Create a new student
           if (firstNameController.text.isEmpty ||
@@ -66,11 +73,13 @@ class StudentDialog extends StatelessWidget {
               df.parse(
                 dateTextController.text,
               ),
-              // TODO: Populate from a dropdown
-              Classe(1, "DSI23", 23),
+              selectedClasse,
             ),
           );
           studentProvider.addStudent(myStudent);
+          if (selectedClasse != null) {
+            studentProvider.filterStudents(selectedClasse.name);
+          }
           break;
         case false: // -- Update an existing student
           myStudent = await _httpStudentService.updateStudent(
@@ -81,11 +90,13 @@ class StudentDialog extends StatelessWidget {
               df.parse(
                 dateTextController.text,
               ),
-              // TODO: Populate from a dropdown
-              Classe(1, "DSI23", 23),
+              selectedClasse,
             ),
           );
           studentProvider.updateStudents(myStudent);
+          if (selectedClasse != null) {
+            studentProvider.filterStudents(selectedClasse.name);
+          }
           break;
       }
 

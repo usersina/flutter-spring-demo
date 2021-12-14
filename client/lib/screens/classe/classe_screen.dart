@@ -2,7 +2,6 @@ import 'package:client/models/classe.dart';
 import 'package:client/providers/classe_provider.dart';
 import 'package:client/screens/classe/classe_dialog.dart';
 import 'package:client/screens/classe/classe_list.dart';
-import 'package:client/screens/student/student_dialog.dart';
 import 'package:client/services/http_classe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +30,7 @@ class ClasseScreen extends StatelessWidget {
           }
           if (snapshot.hasData) {
             classeProvider.setClasses(snapshot.data ?? [], notify: false);
-            return ClasseList();
+            return const ClasseList();
           } else if (snapshot.hasError) {
             return Center(
               child: Text("${snapshot.error}"),

@@ -5,7 +5,7 @@ class Student {
   String firstName;
   String lastName;
   DateTime birthDate;
-  Classe classe;
+  Classe? classe;
 
   Student(
     this.id,
@@ -26,7 +26,7 @@ class Student {
         map["prenom"],
         map["nom"],
         DateTime.parse(map["dateNais"]),
-        Classe.fromJson(map["classe"]),
+        map["classe"] != null ? Classe.fromJson(map["classe"]) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,6 +34,6 @@ class Student {
         "prenom": firstName,
         "nom": lastName,
         "dateNais": birthDate.toIso8601String(),
-        "classe": classe.toJson(),
+        "classe": classe?.toJson(),
       };
 }

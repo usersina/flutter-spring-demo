@@ -3,7 +3,6 @@ import 'package:client/providers/classe_provider.dart';
 import 'package:client/services/http_classe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ClasseDialog extends StatelessWidget {

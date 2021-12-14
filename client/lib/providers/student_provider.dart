@@ -13,7 +13,8 @@ class StudentProvider extends ChangeNotifier {
   }
 
   void updateStudents(Student student) {
-    list[list.indexWhere((element) => element.id == student.id)] = student;
+    initialList[initialList.indexWhere((element) => element.id == student.id)] =
+        student;
     notifyListeners();
   }
 
@@ -22,19 +23,19 @@ class StudentProvider extends ChangeNotifier {
       list = initialList;
     } else {
       list = initialList
-          .where((element) => element.classe.name == classname)
+          .where((element) => element.classe?.name == classname)
           .toList();
     }
     if (notify) notifyListeners();
   }
 
   void addStudent(Student student) {
-    list.add(student);
+    initialList.add(student);
     notifyListeners();
   }
 
   void deleteStudent(int id) {
-    list.removeWhere((element) => element.id == id);
+    initialList.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 }
